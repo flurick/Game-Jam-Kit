@@ -15,8 +15,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="New Game Project"
-config/icon="res://icon.png"
+config/name="Game Jam Kit"
+boot_splash/fullsize=false
 
 [editor_plugins]
 
