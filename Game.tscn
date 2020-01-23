@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="VisualScriptFunction" id=1]
+resource_name = "_physics_process"
+argument_count = 1
+argument_1/type = 3
+argument_1/name = "delta"
+
+[sub_resource type="VisualScript" id=2]
+data = {
+"base_type": "Polygon2D",
+"functions": [ {
+"data_connections": [  ],
+"function_id": 0,
+"name": "_physics_process",
+"nodes": [ 0, Vector2( -200, 0 ), SubResource( 1 ) ],
+"scroll": Vector2( -403, -100 ),
+"sequence_connections": [  ]
+} ],
+"signals": [  ],
+"variables": [  ]
+}
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PoolVector2Array( 49, 15, 51, 64, 3, 83, -28, 49, -10, 21, 19, -3, 12, -10, 40, -12, 58, -10 )
+script = SubResource( 2 )
