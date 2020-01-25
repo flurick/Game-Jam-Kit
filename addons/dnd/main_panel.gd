@@ -28,10 +28,6 @@ func show_in_list(method_name):
 	x.rect_min_size = Vector2.ONE * 38
 	$"ScrollContainer/Grid".add_child(x)
 	
-#	var tree_item = $Tree.create_item()
-#	tree_item.set_text(0,method_name)
-#	tree_item.set_cell_mode(1,TreeItem.CELL_MODE_CUSTOM)
-	
 	x = Panel.new()
 	x.size_flags_horizontal = SIZE_EXPAND_FILL
 	$ScrollContainer/Grid.add_child(x)
@@ -52,11 +48,6 @@ func show_in_list(method_name):
 	row.connect("changed", self, "code_changed")
 	#
 	x.add_child(row)
-	
-#	var test = Button.new()
-#	test.size_flags_vertical = SIZE_EXPAND_FILL
-#	test.text = "foo"
-#	row.add_child(test)
 
 
 func code_changed(src_row:HBoxContainer):
@@ -76,16 +67,6 @@ func code_changed(src_row:HBoxContainer):
 				_: $code.text += str("#\t", "var ", arg, " = ", str(actionsource.arg.get(arg)), " #(unknown argument type)\n")
 			
 		$code.text += str("\t", actionsource.code, "\n")
-
-
-func _on_Button8_toggled(button_pressed):
-	if button_pressed:
-		$ActionPanel.popup()
-	else:
-		$ActionPanel.hide()
-
-#func _on_ActionPanel_popup_hide():
-#	$Button8.pressed = false
 
 
 func _on_Button_selected(src):
