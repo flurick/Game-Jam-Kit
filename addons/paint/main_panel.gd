@@ -14,30 +14,35 @@ func _on_Size_value_changed(value):
 	$Brush.rect_size = Vector2.ONE*value
 
 
-var brush_size = Vector2.ONE
-var is_brush_resizing = false
+var mod_mask
+var button_mask
 func _on_background_gui_input(event):
 	
-	if Input.is_key_pressed(KEY_SPACE) \
-	and event is InputEventMouseMotion:
-		$Canvas.rect_position += event.relative
-		return
+	$Brush.rect_position = event.position - $Brush.rect_size*0.5
+	
+	if event is InputEventMouseButton:
+		mod_mask = int(Input.is_key_pressed(KEY_SPACE))*32 + int(event.shift)*16 + int(event.control)*8 + int(event.alt)*4 + int(event.meta)*2 + int(event.command)
+		button_mask = event.button_mask
 		
-	if event is InputEventMouseButton and not event.pressed:
-		is_brush_resizing = false
-		return
-	if event is InputEventMouseButton and event.control:
-		is_brush_resizing = event.pressed
-		return
-
+		if button_mask == BUTTON_MASK_LEFT and mod_mask == 0:
+			paint(event.global_position)
+	
+	
 	if event is InputEventMouseMotion:
-		if is_brush_resizing:
-			brush_size += event.relative
-			$Toolbox/HBoxContainer/Size.set_value( max(brush_size.x,brush_size.y) )
-			return
-		else:
-			$Brush.rect_position = event.position - $Brush.rect_size*0.5
-			return
+		if button_mask == BUTTON_MASK_LEFT:
+			print(mod_mask)
+			match mod_mask:
+				32:  $Canvas.rect_position += event.relative
+				9:  $Brush.rect_size += event.relative
+				25:  $Brush.rect_rotation += event.relative.x
+				0:  paint(event.global_position)
+
+
+func paint(position:Vector2):
+	var new_dab:Control = $Brush.duplicate ()
+	new_dab.rect_position = position - $Canvas.rect_global_position - $Brush.rect_size*0.5
+	$Canvas.add_child (new_dab)
+
 
 func _on_HSlider_value_changed(value):
 	parseColorPicker()
@@ -46,7 +51,12 @@ func _on_ColorPickerButton_color_changed(color):
 func _on_ColorPickerButton2_color_changed(color):
 	parseColorPicker()
 func parseColorPicker():
-	$Brush/TextureRect.modulate = $Toolbox/HBoxContainer/Control/HBoxContainer/ColorPickerButton.color.linear_interpolate($Toolbox/HBoxContainer/Control/HBoxContainer/ColorPickerButton2.color, $Toolbox/HBoxContainer/Control/HBoxContainer/HSlider.value)
+	var c = $Toolbox/HBoxContainer/Control/HBoxContainer/ColorPickerButton.color.linear_interpolate(\
+		$Toolbox/HBoxContainer/Control/HBoxContainer/ColorPickerButton2.color, \
+		$Toolbox/HBoxContainer/Control/HBoxContainer/HSlider.value)
+	
+	$Brush.color = c
+	$Brush/TextureRect.modulate = c
 
 
 func _on_Button1_toggled(button_pressed):
