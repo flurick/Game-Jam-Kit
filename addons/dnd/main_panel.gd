@@ -68,9 +68,10 @@ func code_changed(src_row:HBoxContainer):
 			
 		$code.text += str("\t", actionsource.code, "\n")
 
-
+var last_selected_action
 func _on_Button_selected(src):
-	
+	last_selected_action = src
+	$"Toolbar/HBoxContainer/Action/Title".text = str("Action: ",src.text)
 	var vars = $Toolbar/HBoxContainer/Argument/ScrollContainer/Vars
 	
 #	if not vars: 
@@ -88,3 +89,19 @@ func _on_Button_selected(src):
 		var arg_control = Label.new()
 		arg_control.text = str( src.arg.get(arg) )
 		vars.add_child(arg_control)
+
+func _on_Button8_pressed():
+	var new_action = load ("res://Action.tscn").instance ()
+	new_action.connect("selected",self,"_on_Button_selected")
+	find_node ("Actions").add_child (new_action)
+
+
+func _on_del_action_pressed():
+	last_selected_action.queue_free()
+
+
+func _on_edit_action_pressed():
+#	last_selected_action.queue_free()
+	if last_selected_action:
+		$code.text = str(last_selected_action.arg)
+		$code.text += last_selected_action.code

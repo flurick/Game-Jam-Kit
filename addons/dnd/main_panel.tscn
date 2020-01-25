@@ -1,12 +1,10 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/dnd/main_panel.gd" type="Script" id=1]
-[ext_resource path="res://addons/dnd/ActionSource.gd" type="Script" id=2]
+[ext_resource path="res://Action.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/dnd/ActionSource.gd" type="Script" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=1]
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.0666667, 0.415686, 0.788235, 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.403922, 0.0666667, 0.788235, 1 )
@@ -148,47 +146,40 @@ size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="Actions" type="GridContainer" parent="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer"]
-margin_right = 152.0
+margin_right = 100.0
 margin_bottom = 34.0
 rect_clip_content = true
 columns = 4
 
-[node name="Move" type="Button" parent="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions"]
-margin_right = 48.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 48, 34 )
-custom_styles/normal = SubResource( 2 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Move"
-script = ExtResource( 2 )
+[node name="Move" parent="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions" instance=ExtResource( 2 )]
+visible = false
 arg = {
 "direction": Vector2( 1, 0 ),
 "speed": 8
 }
 
 [node name="Sound" type="Button" parent="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions"]
-margin_left = 52.0
-margin_right = 100.0
+margin_right = 48.0
 margin_bottom = 34.0
 rect_min_size = Vector2( 48, 34 )
 custom_styles/normal = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Sound"
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 arg = {
 "wav file": SubResource( 4 )
 }
 code = ""
 
 [node name="Sound2" type="Button" parent="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions"]
-margin_left = 104.0
-margin_right = 152.0
+margin_left = 52.0
+margin_right = 100.0
 margin_bottom = 34.0
 rect_min_size = Vector2( 48, 34 )
 custom_styles/normal = SubResource( 5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Create"
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 arg = {
 "name": ""
 }
@@ -200,32 +191,29 @@ margin_right = 234.0
 margin_bottom = 74.0
 alignment = 1
 
-[node name="Button8" type="Button" parent="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer"]
+[node name="add_action" type="Button" parent="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer"]
 margin_right = 24.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-disabled = true
 action_mode = 0
 text = "+"
 
-[node name="Button9" type="Button" parent="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer"]
+[node name="edit_action" type="Button" parent="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer"]
 margin_top = 26.0
 margin_right = 24.0
 margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-disabled = true
 action_mode = 0
 text = "..."
 
-[node name="Button10" type="Button" parent="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer"]
+[node name="del_action" type="Button" parent="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer"]
 margin_top = 52.0
 margin_right = 24.0
 margin_bottom = 74.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-disabled = true
 action_mode = 0
 text = "-"
 
@@ -388,6 +376,8 @@ margin_right = 375.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
 columns = 2
-[connection signal="selected" from="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions/Move" to="." method="_on_Button_selected"]
 [connection signal="selected" from="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions/Sound" to="." method="_on_Button_selected"]
 [connection signal="selected" from="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions/Sound2" to="." method="_on_Button_selected"]
+[connection signal="pressed" from="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer/add_action" to="." method="_on_Button8_pressed"]
+[connection signal="pressed" from="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer/edit_action" to="." method="_on_edit_action_pressed"]
+[connection signal="pressed" from="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer/del_action" to="." method="_on_del_action_pressed"]
