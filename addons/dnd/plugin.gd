@@ -23,9 +23,10 @@ func _exit_tree():
 
 func _ready():
 	
-	main_panel_instance.get_node("Toolbar/HBoxContainer/Button/Label").text = str("<",get_editor_interface().get_script(),">")
+#	main_panel_instance.get_node("Panel/Toolbar/HBoxContainer/Button/Label").text = str("<",get_editor_interface().get_script(),">")
 #   main_panel_instance.connect("main_button_pressed", side_panel_instance, "_on_main_button_pressed")
 #   side_panel_instance.connect("side_button_pressed", main_panel_instance, "_on_side_button_pressed")
+	pass
 
 func has_main_screen():
    return true

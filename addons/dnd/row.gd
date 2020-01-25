@@ -1,7 +1,7 @@
 extends Control
 
 signal changed(src)
-var method_name = "???"
+export var method_name = "???"
 
 func can_drop_data(pos, data):
 	return typeof(data) == TYPE_OBJECT
