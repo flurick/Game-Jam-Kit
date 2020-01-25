@@ -1,3 +1,4 @@
+tool
 extends Button
 
 export var arg:Dictionary = {"speed":8, "direction":Vector2.RIGHT}

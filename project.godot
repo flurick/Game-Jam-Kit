@@ -20,7 +20,7 @@ boot_splash/fullsize=false
 
 [editor_plugins]
 
-enabled=PoolStringArray( "QuickPluginManager", "dnd" )
+enabled=PoolStringArray( "QuickPluginManager", "caretoshare", "deadline", "dnd" )
 
 [rendering]
 
