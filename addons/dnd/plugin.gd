@@ -33,9 +33,9 @@ func has_main_screen():
 
 func make_visible(visible):
    if visible:
-      main_panel_instance.show()
+	  main_panel_instance.show()
    else:
-      main_panel_instance.hide()
+	  main_panel_instance.hide()
 
 func get_plugin_name():
    return "DnD"

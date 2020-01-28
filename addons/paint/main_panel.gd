@@ -21,6 +21,7 @@ func _on_background_gui_input(event):
 	
 	if not event is InputEventMouse: return
 	
+	
 	$Brush.rect_position = event.position - $Brush.rect_size*0.5
 	
 	if event is InputEventMouseButton:
@@ -29,14 +30,17 @@ func _on_background_gui_input(event):
 		
 		if button_mask == BUTTON_MASK_LEFT and mod_mask == 0:
 			paint(event.global_position)
-	
+		
+		if  event.button_index == BUTTON_LEFT \
+		and mod_mask == 0 \
+		and not event.pressed:
+			save()
 	
 	if event is InputEventMouseMotion:
 		if button_mask == BUTTON_MASK_MIDDLE:
 			$Canvas.rect_position += event.relative
 		
 		if button_mask == BUTTON_MASK_LEFT:
-#			print(mod_mask)
 			match mod_mask:
 				32:  $Canvas.rect_position += event.relative
 				8:  $Brush.rect_size += event.relative
@@ -47,7 +51,15 @@ func _on_background_gui_input(event):
 func paint(position:Vector2):
 	var new_dab:Control = $Brush.duplicate ()
 	new_dab.rect_position = position - $Canvas.rect_global_position - $Brush.rect_size*0.5
+#	$Canvas/ViewportContainer/Viewport.add_child (new_dab)
 	$Canvas.add_child (new_dab)
+
+
+func save():
+	print("save?")
+#	$Canvas.text
+#	ResourceSaver.save("res://painted.png", $Canvas.text)
+	pass
 
 
 func _on_HSlider_value_changed(value):
