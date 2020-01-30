@@ -1,36 +1,48 @@
 tool
 extends Panel
 
-var mode = "basic"
+var view_mode = 1
 var basic = ["_ready", "_input", "_process", "_draw", "_free" ]
+var is_edited = false
+
 
 func _ready():
 	
 	$Hint.popup()
+	list_methods()
+	list_actions()
+
+
+func list_actions():
+	var ui_list = $"Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions"
 	
-	if mode == "basic":
+	ui_list.add_child( load("res://addons/dnd/actions/Move.tscn").instance())
+	ui_list.add_child( load("res://addons/dnd/actions/Sound.tscn").instance())
+	ui_list.add_child( load("res://addons/dnd/actions/Create.tscn").instance())
+
+
+func list_methods():
+	
+	if view_mode:
 		for method in basic:
 			show_in_list(method)
-	
-#	for method in get_method_list():
-#			if basic.has(method.name):
-#		else:
-#			if method.name[0] =="_":
-#				var x = Button.new()
-#				x.text = str(method.name)
-#				$"ScrollContainer/Grid".add_child(x)
+			
+	else:
+		for method in get_method_list():
+			if method.name[0] == "_":
+				show_in_list(method.name)
 
 
 func show_in_list(method_name):
 	
-	var x = Button.new()
-	x.text = method_name
-	x.rect_min_size = Vector2.ONE * 38
-	$"ScrollContainer/Grid".add_child(x)
+	var b = Button.new()
+	b.text = method_name
+	b.rect_min_size = Vector2.ONE * 38
+	$ScrollContainer/Grid.add_child(b)
 	
-	x = Panel.new()
-	x.size_flags_horizontal = SIZE_EXPAND_FILL
-	$ScrollContainer/Grid.add_child(x)
+	var p = Panel.new()
+	p.size_flags_horizontal = SIZE_EXPAND_FILL
+	$ScrollContainer/Grid.add_child(p)
 	
 	var row = HBoxContainer.new()
 	row.size_flags_horizontal = SIZE_EXPAND_FILL
@@ -43,40 +55,84 @@ func show_in_list(method_name):
 	row.margin_bottom = -3
 	row.margin_left = 3
 	#
-	row.set_script(load("res://addons/dnd/row.gd"))
+	row.set_script (load("res://addons/dnd/row.gd"))
 	row.method_name = method_name
 	row.connect("changed", self, "code_changed")
 	#
-	x.add_child(row)
+	p.add_child(row)
 
 
 func code_changed(src_row:HBoxContainer):
-	$code.text = ""
-	$code.text += str(src_row.method_name, "():\n")
-	for actionsource in src_row.get_children():
-		$code.text += str("\t# # # ", actionsource.text, " # # #\n")
+	
+	for action in src_row.get_children():
+		action.connect("selected",self,"_on_action_selected")
+	
+	var method_block = get_method_block(src_row.method_name)
+	if method_block.matches > 0:
+		$code.select(method_block.first,0,  method_block.last,$code.get_line(method_block.last).length())
+		$code.cut()
+		print("cut:\n",OS.clipboard)
+	$code.text += parse_row(src_row) #str("func ", src_row.method_name,"(): \n\tpass") #
+
+
+func get_method_block(method_name):
+	
+	var term = str("func ", method_name)
+	var result = $code.search(term, 0, 0,0)
+	if result.size() == 0: 
+		return {"matches":0, "first":-1, "last":-1}
+	
+	var first = result[TextEdit.SEARCH_RESULT_LINE]
+	var last = first
+	
+#	if $code.can_fold(first):
+#		last += 1
+#	else:
+#		return {"matches":result.size(), "first":first, "last":last}
+	
+	while last <= $code.get_line_count():
+		if $code.get_line(last).begins_with("func"):
+#		or $code.get_line(last).begins_with("var")\
+#		or $code.get_line(last).begins_with("signal"):
+			break
+		print(last)
+		last += 1
+	
+	return {"matches":result.size(), "first":first, "last":last}
+
+
+func parse_row(row:HBoxContainer):
+	
+	var code = ""
+	code += str("func ", row.method_name, "():\n")
+	for actionsource in row.get_children():
+		code += str("\t# # # ", actionsource.text, "_", actionsource.get_index()+1, " # # #\n")
 		for arg in actionsource.arg:
 			
 			if str(actionsource.arg.get(arg)).length() == 0:
-				$code.text += str("\tvar ", arg, "\n")
+				code += str("\tvar ", arg, "\n")
 				continue
 			match typeof(actionsource.arg.get(arg)):
-				TYPE_INT: $code.text += str("\tvar ", arg, " = ", str(actionsource.arg.get(arg)), "\n")
-				TYPE_STRING: $code.text += str("\tvar ", arg, " = ", str(actionsource.arg.get(arg)), "\n")
-				TYPE_VECTOR2: $code.text += str("\tvar ", arg, " = Vector2", str(actionsource.arg.get(arg)), "\n")
-				_: $code.text += str("#\t", "var ", arg, " = ", str(actionsource.arg.get(arg)), " #(unknown argument type)\n")
+				TYPE_INT: code += str("\tvar ", arg, " = ", str(actionsource.arg.get(arg)), "\n")
+				TYPE_STRING: code += str("\tvar ", arg, " = ", str(actionsource.arg.get(arg)), "\n")
+				TYPE_VECTOR2: code += str("\tvar ", arg, " = Vector2", str(actionsource.arg.get(arg)), "\n")
+				_: code += str("#\t", "var ", arg, " = ", str(actionsource.arg.get(arg)), " #(unknown argument type)\n")
 			
-		$code.text += str("\t", actionsource.code, "\n")
+		code += str("\t", actionsource.code, "\n")
+	
+	code += str("\tpass\n\n")
+	return code
+
 
 var last_selected_action
-func _on_Button_selected(src):
+func _on_action_selected(src):
+#	print("action selected: reported by ", name)
 	last_selected_action = src
-	$"Toolbar/HBoxContainer/Action/Title".text = str("Action: ",src.text)
+#	$"Toolbar/HBoxContainer/Action/Title".text = str("Action: ",src.text)
 	var vars = $Toolbar/HBoxContainer/Argument/ScrollContainer/Vars
 	
-#	if not vars: 
-#		print("oops. no vars toolbox")
-#		return
+	$Toolbar/HBoxContainer/Argument/Title.text = src.text
+	
 	for old_var in vars.get_children():
 		old_var.queue_free()
 	
@@ -90,9 +146,10 @@ func _on_Button_selected(src):
 		arg_control.text = str( src.arg.get(arg) )
 		vars.add_child(arg_control)
 
+
 func _on_Button8_pressed():
 	var new_action = load ("res://Action.tscn").instance ()
-	new_action.connect("selected",self,"_on_Button_selected")
+	new_action.connect("selected",self,"_on_action_selected")
 	find_node ("Actions").add_child (new_action)
 
 
@@ -101,7 +158,19 @@ func _on_del_action_pressed():
 
 
 func _on_edit_action_pressed():
-#	last_selected_action.queue_free()
 	if last_selected_action:
 		$code.text = str(last_selected_action.arg)
 		$code.text += last_selected_action.code
+
+
+
+func _on_Save_pressed():
+	
+	pass # Replace with function body.
+
+
+func _on_CheckBox_toggled(button_pressed):
+	view_mode = button_pressed
+	for child in $ScrollContainer/Grid.get_children():
+		child.queue_free()
+	list_methods()

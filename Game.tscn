@@ -3,7 +3,7 @@
 [ext_resource path="res://HairSpray.gd" type="Script" id=1]
 [ext_resource path="res://Polygon2D.gd" type="Script" id=2]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
 
@@ -22,8 +22,7 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="Animation" id=1]
-resource_name = "blink"
+[sub_resource type="Animation" id=2]
 length = 3.0
 loop = true
 tracks/0/type = "value"
@@ -59,6 +58,7 @@ tracks/1/keys = {
 position = Vector2( -0.614746, -43.7013 )
 points = PoolVector2Array( 0, 0, -4.7046, 4.96046, -9.51794, 16.1219, -20.1586, 21.273, -24.4514, 19.5559, -27.2417, 16.7656 )
 default_color = Color( 0.180392, 0.0431373, 0.0745098, 1 )
+texture_mode = 1065030846
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource( 1 )
@@ -69,6 +69,7 @@ position = Vector2( -16.3123, 33.7852 )
 points = PoolVector2Array( -1.43467, -0.593348, -0.53508, 5.96078, 1.77814, 12.1294, 6.27608, 17.1414, 11.8021, 19.7116 )
 width = 20.0
 default_color = Color( 0.662745, 0.45098, 0.243137, 1 )
+texture_mode = 1065030846
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource( 1 )
@@ -79,15 +80,18 @@ position = Vector2( -15.3637, 37.7313 )
 points = PoolVector2Array( -0.228851, -1.57278, 0.77253, 7.18928 )
 width = 24.0
 default_color = Color( 0.726563, 0.0936584, 0.0936584, 1 )
+texture_mode = 1065030846
 begin_cap_mode = 2
 script = ExtResource( 1 )
 staleness = 0.7
 
 [node name="limb6" type="Line2D" parent="CanvasLayer2"]
+visible = false
 position = Vector2( -24.5088, -4.88648 )
 points = PoolVector2Array( -1.43467, -0.593348, -6.69744, -1.90195, -11.4408, -4.53716, -16.9747, -9.80758, -20.137, -15.605 )
 width = 20.0
 default_color = Color( 0.792157, 0.529412, 0.27451, 1 )
+texture_mode = 1063372184
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource( 1 )
@@ -100,21 +104,21 @@ polygon = PoolVector2Array( 49, 15, 35.7406, 32.8613, 48.4341, 46.716, 46.7557, 
 script = ExtResource( 2 )
 
 [node name="hat" type="Line2D" parent="CanvasLayer2/body"]
-process_priority = -1
 position = Vector2( 36.4631, -56.2391 )
 points = PoolVector2Array( 0, 0, 0.1, 0 )
 width = 27.0
 default_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+texture_mode = 0
 begin_cap_mode = 2
 end_cap_mode = 2
 round_precision = 16
 
 [node name="hat2" type="Line2D" parent="CanvasLayer2/body"]
-process_priority = -1
 position = Vector2( 38.7883, -58.8964 )
 points = PoolVector2Array( 9.0927, 10.1097, 1.78501, 5.12716, -8.05406, -1.77669, -12.9492, -5.97248 )
 width = 7.0
 default_color = Color( 0, 0, 0, 1 )
+texture_mode = 56998464
 round_precision = 16
 
 [node name="shirt" type="Polygon2D" parent="CanvasLayer2/body"]
@@ -123,25 +127,26 @@ offset = Vector2( -17, -41 )
 polygon = PoolVector2Array( 35.9934, 28.0977, 50.9052, 44.591, 48.1939, 67.6365, 34.6378, 81.4186, -3.5454, 83.452, -22.75, 67.6365, -27.016, 47.5482, -15.52, 25.3865, -3.99727, 26.968, 9.78483, 26.0643, 20.1779, 23.8049, 28.3116, 24.0309 )
 
 [node name="eye" type="Node2D" parent="CanvasLayer2/body"]
-script = SubResource( 2 )
+script = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer2/body/eye"]
 playback_speed = 0.7
-anims/blink = SubResource( 1 )
+anims/blink = SubResource( 2 )
 
 [node name="Line2D" type="Line2D" parent="CanvasLayer2/body/eye"]
 position = Vector2( -16.5973, -37.805 )
 points = PoolVector2Array( 31.5684, -4.24841, 33.3228, -3.44433 )
 default_color = Color( 1, 1, 1, 1 )
+texture_mode = 0
 begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="Line2D2" type="Line2D" parent="CanvasLayer2/body/eye"]
-process_priority = -1
 position = Vector2( 12.4957, -42.6933 )
 points = PoolVector2Array( 0, 0, 0.1, 0 )
 width = 5.0
 default_color = Color( 0, 0, 0, 1 )
+texture_mode = 0
 begin_cap_mode = 2
 end_cap_mode = 2
 
@@ -150,6 +155,7 @@ position = Vector2( 24.0291, -5.57961 )
 points = PoolVector2Array( -1.43467, -0.593348, 2.84743, 2.25426, 5.63774, 6.54705, 9.93053, 12.557, 11.8021, 19.7116 )
 width = 20.0
 default_color = Color( 0.792157, 0.529412, 0.27451, 1 )
+texture_mode = 56998464
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource( 1 )
@@ -159,6 +165,7 @@ staleness = 0.7
 position = Vector2( -0.614746, -43.7013 )
 points = PoolVector2Array( 0, 0, 3.88097, 6.46293, 6.37065, 17.7944, 16.5447, 28.3561, 25.1303, 29.2147, 30.4962, 25.1365 )
 default_color = Color( 0.180392, 0.0431373, 0.0745098, 1 )
+texture_mode = 1395487309
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource( 1 )
@@ -169,6 +176,7 @@ position = Vector2( 25.3048, -57.3877 )
 points = PoolVector2Array( 0, 0, -4.29938, -3.74724, -7.46248, -8.26596 )
 width = 5.0
 default_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+texture_mode = 0
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource( 1 )
@@ -179,6 +187,7 @@ position = Vector2( 40.2166, -46.9947 )
 points = PoolVector2Array( 0, 0, 6.09371, 4.38647, 11.2902, 5.51615 )
 width = 5.0
 default_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+texture_mode = 0
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource( 1 )
@@ -188,6 +197,7 @@ staleness = 0.5
 position = Vector2( 36.3115, -37.6574 )
 points = PoolVector2Array( -2.35182, -2.58592, -2.13719, -0.439533 )
 default_color = Color( 0.180392, 0.0431373, 0.0745098, 1 )
+texture_mode = 0
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource( 1 )
@@ -196,6 +206,7 @@ script = ExtResource( 1 )
 position = Vector2( 29.9639, -52.3354 )
 points = PoolVector2Array( -2.44342, 0.0722694, -2.44342, 3.93578, 0.346882, 9.73104 )
 default_color = Color( 0.180392, 0.0431373, 0.0745098, 1 )
+texture_mode = 56998464
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource( 1 )
@@ -204,6 +215,7 @@ script = ExtResource( 1 )
 position = Vector2( 38.489, -46.2238 )
 points = PoolVector2Array( -2.38295, 0.185253, -0.665844, 3.40484 )
 default_color = Color( 0.180392, 0.0431373, 0.0745098, 1 )
+texture_mode = 0
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource( 1 )
@@ -213,6 +225,7 @@ position = Vector2( 15.905, 30.9305 )
 points = PoolVector2Array( -1.43467, -0.593348, -0.53508, 5.96078, 1.77814, 12.1294, 6.27608, 17.1414, 11.8021, 19.7116 )
 width = 20.0
 default_color = Color( 0.792157, 0.529412, 0.27451, 1 )
+texture_mode = 0
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource( 1 )
@@ -223,6 +236,7 @@ position = Vector2( 15.905, 30.9305 )
 points = PoolVector2Array( -1.43467, -0.593348, 3.08838, 12.8771 )
 width = 24.0
 default_color = Color( 0.780392, 0.0901961, 0.0901961, 1 )
+texture_mode = 1935745659
 begin_cap_mode = 2
 script = ExtResource( 1 )
 staleness = 0.7

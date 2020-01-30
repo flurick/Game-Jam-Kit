@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/dnd/ActionSource.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.403922, 0.0666667, 0.788235, 1 )
+
+[sub_resource type="AudioStreamSample" id=3]
+
+[node name="Sound" type="Button"]
+margin_left = 52.0
+margin_right = 100.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 48, 34 )
+custom_styles/normal = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Sound"
+script = ExtResource( 1 )
+arg = {
+"wav file": SubResource( 3 )
+}
+code = ""

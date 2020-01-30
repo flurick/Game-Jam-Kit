@@ -1,23 +1,16 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/dnd/main_panel.gd" type="Script" id=1]
-[ext_resource path="res://Action.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/dnd/ActionSource.gd" type="Script" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=1]
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.403922, 0.0666667, 0.788235, 1 )
-
-[sub_resource type="AudioStreamSample" id=4]
-
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.203922, 0.654902, 0.0745098, 1 )
 
 [node name="Panel" type="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="bg" type="Button" parent="."]
 anchor_right = 1.0
@@ -33,7 +26,6 @@ size_flags_vertical = 3
 disabled = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 9.0
@@ -43,6 +35,9 @@ rect_min_size = Vector2( 100, 200 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Grid" type="GridContainer" parent="ScrollContainer"]
 margin_right = 1006.0
@@ -52,32 +47,69 @@ size_flags_vertical = 3
 custom_constants/hseparation = 0
 columns = 2
 
-[node name="Button" type="MenuButton" parent="ScrollContainer/Grid"]
-margin_right = 68.0
-margin_bottom = 20.0
-text = "Event"
-items = [ "Signals", null, 1, false, false, 0, 0, null, "", false, "All Methods", null, 1, false, false, 1, 0, null, "", false ]
-
-[node name="Button2" type="MenuButton" parent="ScrollContainer/Grid"]
-margin_left = 68.0
-margin_right = 1006.0
-margin_bottom = 20.0
-button_mask = 0
-text = "Actions"
-
 [node name="Toolbar" type="Panel" parent="."]
 anchor_right = 1.0
 margin_bottom = 89.0
 rect_min_size = Vector2( 48, 90 )
 custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Toolbar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="File" type="Control" parent="Toolbar/HBoxContainer"]
+margin_right = 49.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 49, 48 )
+rect_clip_content = true
+
+[node name="Grid" type="GridContainer" parent="Toolbar/HBoxContainer/File"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Save" type="Button" parent="Toolbar/HBoxContainer/File/Grid"]
+margin_right = 41.0
+margin_bottom = 20.0
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Toolbar/HBoxContainer/File"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+size_flags_vertical = 5
+custom_colors/font_color = Color( 1, 1, 1, 0.47451 )
+text = "File"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="Toolbar/HBoxContainer/File"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -4.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Mode" type="Control" parent="Toolbar/HBoxContainer"]
-editor/display_folded = true
-margin_right = 100.0
+visible = false
+margin_left = 53.0
+margin_right = 153.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 100, 48 )
 rect_clip_content = true
@@ -122,11 +154,12 @@ anchor_bottom = 1.0
 margin_left = -4.0
 
 [node name="Action" type="Control" parent="Toolbar/HBoxContainer"]
-margin_left = 104.0
-margin_right = 354.0
+margin_left = 53.0
+margin_right = 849.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 250, 0 )
 rect_clip_content = true
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Toolbar/HBoxContainer/Action"]
@@ -137,57 +170,24 @@ margin_bottom = -16.0
 rect_min_size = Vector2( 38, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Toolbar/HBoxContainer/Action/HBoxContainer"]
-margin_right = 206.0
+margin_right = 752.0
 margin_bottom = 74.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="Actions" type="GridContainer" parent="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer"]
-margin_right = 100.0
-margin_bottom = 34.0
 rect_clip_content = true
 columns = 4
 
-[node name="Move" parent="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions" instance=ExtResource( 2 )]
-visible = false
-arg = {
-"direction": Vector2( 1, 0 ),
-"speed": 8
-}
-
-[node name="Sound" type="Button" parent="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions"]
-margin_right = 48.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 48, 34 )
-custom_styles/normal = SubResource( 3 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Sound"
-script = ExtResource( 3 )
-arg = {
-"wav file": SubResource( 4 )
-}
-code = ""
-
-[node name="Sound2" type="Button" parent="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions"]
-margin_left = 52.0
-margin_right = 100.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 48, 34 )
-custom_styles/normal = SubResource( 5 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Create"
-script = ExtResource( 3 )
-arg = {
-"name": ""
-}
-code = ""
-
 [node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/HBoxContainer/Action/HBoxContainer"]
-margin_left = 210.0
-margin_right = 234.0
+margin_left = 756.0
+margin_right = 780.0
 margin_bottom = 74.0
 alignment = 1
 
@@ -233,60 +233,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.0
 
-[node name="Variable" type="Control" parent="Toolbar/HBoxContainer"]
-editor/display_folded = true
-visible = false
-margin_left = 351.0
-margin_right = 451.0
-margin_bottom = 89.0
-rect_min_size = Vector2( 100, 0 )
-rect_clip_content = true
-
-[node name="Title" type="Label" parent="Toolbar/HBoxContainer/Variable"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -14.0
-size_flags_vertical = 1
-custom_colors/font_color = Color( 1, 1, 1, 0.47451 )
-text = "Variable"
-align = 1
-
-[node name="VSeparator3" type="VSeparator" parent="Toolbar/HBoxContainer/Variable"]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -4.0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Toolbar/HBoxContainer/Variable"]
-editor/display_folded = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = -18.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Var" type="GridContainer" parent="Toolbar/HBoxContainer/Variable/ScrollContainer"]
-margin_right = 24.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
-columns = 2
-
-[node name="Label" type="Label" parent="Toolbar/HBoxContainer/Variable/ScrollContainer/Var"]
-margin_right = 10.0
-margin_bottom = 14.0
-text = "N"
-
-[node name="Label2" type="Label" parent="Toolbar/HBoxContainer/Variable/ScrollContainer/Var"]
-margin_left = 14.0
-margin_right = 30.0
-margin_bottom = 14.0
-text = "42"
-
 [node name="Argument" type="Control" parent="Toolbar/HBoxContainer"]
-editor/display_folded = true
-margin_left = 358.0
-margin_right = 458.0
+margin_left = 853.0
+margin_right = 953.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 100, 0 )
 rect_clip_content = true
@@ -298,14 +247,19 @@ anchor_bottom = 1.0
 margin_top = -14.0
 size_flags_vertical = 1
 custom_colors/font_color = Color( 1, 1, 1, 0.47451 )
-text = "Argument"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VSeparator3" type="VSeparator" parent="Toolbar/HBoxContainer/Argument"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Toolbar/HBoxContainer/Argument"]
 anchor_right = 1.0
@@ -313,30 +267,80 @@ anchor_bottom = 1.0
 margin_bottom = -18.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Vars" type="GridContainer" parent="Toolbar/HBoxContainer/Argument/ScrollContainer"]
+margin_right = 30.0
+margin_bottom = 14.0
 columns = 2
 
-[node name="Spacer" type="Control" parent="Toolbar/HBoxContainer"]
-margin_left = 462.0
-margin_right = 820.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
+[node name="Label" type="Label" parent="Toolbar/HBoxContainer/Argument/ScrollContainer/Vars"]
+margin_right = 10.0
+margin_bottom = 14.0
+text = "N"
 
-[node name="Apply" type="Button" parent="Toolbar/HBoxContainer"]
-editor/display_folded = true
-margin_left = 824.0
+[node name="Label2" type="Label" parent="Toolbar/HBoxContainer/Argument/ScrollContainer/Vars"]
+margin_left = 14.0
+margin_right = 30.0
+margin_bottom = 14.0
+text = "42"
+
+[node name="View" type="Control" parent="Toolbar/HBoxContainer"]
+margin_left = 957.0
 margin_right = 1024.0
 margin_bottom = 90.0
-rect_min_size = Vector2( 200, 0 )
-text = "Apply To Node"
+rect_min_size = Vector2( 67, 48 )
+rect_clip_content = true
 
-[node name="Label" type="Label" parent="Toolbar/HBoxContainer/Apply"]
+[node name="Grid" type="GridContainer" parent="Toolbar/HBoxContainer/View"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="CheckBox" parent="Toolbar/HBoxContainer/View/Grid"]
+margin_right = 62.0
+margin_bottom = 24.0
+pressed = true
+text = "Basic"
+
+[node name="Button" type="Button" parent="Toolbar/HBoxContainer/View/Grid"]
+margin_top = 28.0
+margin_right = 62.0
+margin_bottom = 48.0
+text = "Import"
+
+[node name="Title" type="Label" parent="Toolbar/HBoxContainer/View"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -27.0
+margin_top = -14.0
+size_flags_vertical = 5
+custom_colors/font_color = Color( 1, 1, 1, 0.47451 )
+text = "View"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="Toolbar/HBoxContainer/View"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -4.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer" type="Control" parent="Toolbar/HBoxContainer"]
+visible = false
+margin_left = 540.0
+margin_right = 1024.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
 
 [node name="Tree" type="Tree" parent="."]
 visible = false
@@ -348,12 +352,14 @@ columns = 2
 hide_root = true
 
 [node name="Hint" type="PopupPanel" parent="."]
-editor/display_folded = true
-visible = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -22.0
+margin_top = -136.65
+margin_bottom = -114.65
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="Hint"]
 anchor_right = 1.0
@@ -369,6 +375,8 @@ margin_left = 82.0
 margin_top = 340.0
 margin_right = 1006.0
 margin_bottom = 564.0
+draw_tabs = true
+draw_spaces = true
 
 [node name="Var" type="GridContainer" parent="."]
 margin_left = 351.0
@@ -376,8 +384,8 @@ margin_right = 375.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
 columns = 2
-[connection signal="selected" from="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions/Sound" to="." method="_on_Button_selected"]
-[connection signal="selected" from="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions/Sound2" to="." method="_on_Button_selected"]
+[connection signal="pressed" from="Toolbar/HBoxContainer/File/Grid/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer/add_action" to="." method="_on_Button8_pressed"]
 [connection signal="pressed" from="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer/edit_action" to="." method="_on_edit_action_pressed"]
 [connection signal="pressed" from="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer/del_action" to="." method="_on_del_action_pressed"]
+[connection signal="toggled" from="Toolbar/HBoxContainer/View/Grid/CheckBox" to="." method="_on_CheckBox_toggled"]
