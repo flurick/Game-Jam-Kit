@@ -17,7 +17,7 @@ func get_drag_data(position):
 		return duplicate()
 	
 #	print(">>", get_parent() )
-	get_parent().emit_signal("changed", get_parent())
+#	get_parent().emit_signal("changed", get_parent())
 	
 	get_parent().remove_child(self)
 	return self

@@ -2,7 +2,7 @@ tool
 extends Panel
 
 var view_mode = 1
-var basic = ["_ready", "_input", "_process", "_draw", "_free" ]
+var basic = ["_ready", "_input", "_process", "_draw" ]
 var is_edited = false
 
 
@@ -16,9 +16,17 @@ func _ready():
 func list_actions():
 	var ui_list = $"Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer/Actions"
 	
-	ui_list.add_child( load("res://addons/dnd/actions/Move.tscn").instance())
-	ui_list.add_child( load("res://addons/dnd/actions/Sound.tscn").instance())
-	ui_list.add_child( load("res://addons/dnd/actions/Create.tscn").instance())
+	var d:Directory = Directory.new()
+	d.open("res://addons/dnd/actions/")
+	d.list_dir_begin(true)
+	
+	var f
+	f = d.get_next()
+	while f:
+		ui_list.add_child( load(str("res://addons/dnd/actions/",f)).instance() )
+		f = d.get_next()
+		
+	d.list_dir_end()
 
 
 func list_methods():
@@ -57,28 +65,18 @@ func show_in_list(method_name):
 	#
 	row.set_script (load("res://addons/dnd/row.gd"))
 	row.method_name = method_name
-	row.connect("changed", self, "code_changed")
+#	row.connect("changed", self, "code_changed")
 	#
 	p.add_child(row)
 
 
-func code_changed(src_row:HBoxContainer):
-	
-	$code.text = ""
-#	print("code_changed in ", src_row.method_name)
+#func code_changed(src_row:HBoxContainer):
 #
-#	for action in src_row.get_children():
-#		action.connect("selected",self,"_on_action_selected")
-	
-#	var method_block = get_method_block(src_row.method_name)
-#	print(method_block)
-#	if method_block.matches > 0:
-#		$code.select(method_block.first,0,  method_block.last,$code.get_line(method_block.last).length())
-#		$code.cut()
-	
-	for row in $ScrollContainer/Grid.get_children():
-		if row is Panel:
-			$code.text += parse_row(row.get_child(0))
+#	$code.text = ""
+#
+#	for row in $ScrollContainer/Grid.get_children():
+#		if row is Panel:
+#			$code.text += parse_row(row.get_child(0))
 
 
 func get_method_block(method_name):
@@ -148,7 +146,7 @@ func _on_action_selected(src):
 
 
 func _on_Button8_pressed():
-	var new_action = load ("res://Action.tscn").instance ()
+	var new_action = load ("res://addons/dnd/actions/Template.tscn").instance()
 	new_action.connect("selected",self,"_on_action_selected")
 	find_node ("Actions").add_child (new_action)
 
@@ -163,10 +161,17 @@ func _on_edit_action_pressed():
 		$code.text += last_selected_action.code
 
 
-
 func _on_Save_pressed():
 	
-	pass # Replace with function body.
+	$code.text = ""
+	for row in $ScrollContainer/Grid.get_children():
+		if row is Panel:
+			$code.text += parse_row(row.get_child(0))
+	
+	var f = File.new ()
+	f.open ($"Toolbar/HBoxContainer/File/Grid/Filename".text, File.WRITE )
+	f.store_string ($code.text)
+	f.close ()
 
 
 func _on_CheckBox_toggled(button_pressed):
