@@ -51,12 +51,14 @@ margin_right = 1010.0
 margin_bottom = 160.0
 expand = true
 stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="background" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 focus_mode = 2
-mouse_default_cursor_shape = 3
 
 [node name="Canvas" type="Panel" parent="."]
 anchor_left = 0.5
@@ -70,6 +72,9 @@ margin_bottom = 262.5
 rect_clip_content = true
 mouse_filter = 2
 custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="resize" type="Button" parent="Canvas"]
 anchor_left = 1.0
@@ -95,15 +100,19 @@ enabled_focus_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Viewport" type="Viewport" parent="Canvas/ViewportContainer"]
 size = Vector2( 1000, 1000 )
+handle_input_locally = false
 hdr = false
 usage = 0
 render_target_clear_mode = 1
+render_target_update_mode = 3
 
 [node name="Brush2" type="Control" parent="Canvas/ViewportContainer/Viewport"]
-editor/display_folded = true
 self_modulate = Color( 1, 1, 1, 0 )
 margin_left = 100.0
 margin_top = 100.0
@@ -119,7 +128,6 @@ texture = ExtResource( 2 )
 expand = true
 
 [node name="Brush" type="Control" parent="."]
-editor/display_folded = true
 self_modulate = Color( 1, 1, 1, 0 )
 margin_left = 11.3441
 margin_top = 31.8299
@@ -143,18 +151,25 @@ margin_left = -157.0
 margin_top = 24.0
 
 [node name="Toolbox" type="Panel" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 rect_min_size = Vector2( 24, 24 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Toolbox"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/separation = 17
+custom_constants/separation = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer" type="Control" parent="Toolbox/HBoxContainer"]
+margin_right = 8.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 8, 8 )
 
 [node name="Selection" type="Control" parent="Toolbox/HBoxContainer"]
-editor/display_folded = true
-margin_right = 137.0
+margin_left = 12.0
+margin_right = 149.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 137, 24 )
 rect_clip_content = true
@@ -163,6 +178,9 @@ rect_clip_content = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Button1" type="Button" parent="Toolbox/HBoxContainer/Selection/HBoxContainer"]
 margin_right = 28.0
@@ -215,11 +233,50 @@ toggle_mode = true
 group = SubResource( 3 )
 icon = ExtResource( 5 )
 
+[node name="Label" type="Label" parent="Toolbox/HBoxContainer"]
+margin_left = 153.0
+margin_top = 5.0
+margin_right = 213.0
+margin_bottom = 19.0
+text = "Pressure:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionButton" type="OptionButton" parent="Toolbox/HBoxContainer"]
+margin_left = 217.0
+margin_right = 295.0
+margin_bottom = 24.0
+text = "Opacity"
+items = [ "Opacity", null, false, 0, null, "Mix", null, false, 1, null, "Size", null, false, 2, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer2" type="Control" parent="Toolbox/HBoxContainer"]
+margin_left = 299.0
+margin_right = 307.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 8, 8 )
+
 [node name="filename" type="LineEdit" parent="Toolbox/HBoxContainer"]
-margin_left = 154.0
-margin_right = 212.0
+margin_left = 311.0
+margin_right = 369.0
 margin_bottom = 24.0
 placeholder_text = "Filename"
+
+[node name="Button" type="Button" parent="Toolbox/HBoxContainer"]
+margin_left = 373.0
+margin_right = 414.0
+margin_bottom = 24.0
+text = "Save"
+
+[node name="Spacer3" type="Control" parent="Toolbox/HBoxContainer"]
+margin_left = 418.0
+margin_right = 426.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 8, 8 )
 
 [node name="Tool" type="Label" parent="Toolbox/HBoxContainer"]
 visible = false
@@ -241,10 +298,10 @@ text = "Size:8"
 align = 1
 valign = 1
 script = ExtResource( 6 )
+value = 8
 
 [node name="Control" type="Control" parent="Toolbox/HBoxContainer"]
-editor/display_folded = true
-margin_left = 229.0
+margin_left = 430.0
 margin_right = 1024.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 96, 24 )
@@ -266,9 +323,10 @@ flat = true
 
 [node name="HSlider" type="HSlider" parent="Toolbox/HBoxContainer/Control/HBoxContainer"]
 margin_left = 28.0
-margin_right = 767.0
+margin_right = 566.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "Mix beteen the two selected colors."
 size_flags_horizontal = 3
 size_flags_vertical = 3
 max_value = 1.0
@@ -277,8 +335,8 @@ value = 1.0
 ticks_on_borders = true
 
 [node name="ColorPickerButton2" type="ColorPickerButton" parent="Toolbox/HBoxContainer/Control/HBoxContainer"]
-margin_left = 771.0
-margin_right = 795.0
+margin_left = 570.0
+margin_right = 594.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
 flat = true
@@ -290,6 +348,7 @@ color = Color( 1, 1, 1, 1 )
 [connection signal="toggled" from="Toolbox/HBoxContainer/Selection/HBoxContainer/Button3" to="." method="_on_Button3_toggled"]
 [connection signal="toggled" from="Toolbox/HBoxContainer/Selection/HBoxContainer/Button4" to="." method="_on_Button4_toggled"]
 [connection signal="toggled" from="Toolbox/HBoxContainer/Selection/HBoxContainer/Button5" to="." method="_on_Button5_toggled"]
+[connection signal="item_selected" from="Toolbox/HBoxContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="value_changed" from="Toolbox/HBoxContainer/Size" to="." method="_on_Size_value_changed"]
 [connection signal="color_changed" from="Toolbox/HBoxContainer/Control/HBoxContainer/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
 [connection signal="value_changed" from="Toolbox/HBoxContainer/Control/HBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]
