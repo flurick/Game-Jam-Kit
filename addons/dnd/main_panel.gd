@@ -64,15 +64,21 @@ func show_in_list(method_name):
 
 func code_changed(src_row:HBoxContainer):
 	
-	for action in src_row.get_children():
-		action.connect("selected",self,"_on_action_selected")
+	$code.text = ""
+#	print("code_changed in ", src_row.method_name)
+#
+#	for action in src_row.get_children():
+#		action.connect("selected",self,"_on_action_selected")
 	
-	var method_block = get_method_block(src_row.method_name)
-	if method_block.matches > 0:
-		$code.select(method_block.first,0,  method_block.last,$code.get_line(method_block.last).length())
-		$code.cut()
-		print("cut:\n",OS.clipboard)
-	$code.text += parse_row(src_row) #str("func ", src_row.method_name,"(): \n\tpass") #
+#	var method_block = get_method_block(src_row.method_name)
+#	print(method_block)
+#	if method_block.matches > 0:
+#		$code.select(method_block.first,0,  method_block.last,$code.get_line(method_block.last).length())
+#		$code.cut()
+	
+	for row in $ScrollContainer/Grid.get_children():
+		if row is Panel:
+			$code.text += parse_row(row.get_child(0))
 
 
 func get_method_block(method_name):
@@ -83,19 +89,13 @@ func get_method_block(method_name):
 		return {"matches":0, "first":-1, "last":-1}
 	
 	var first = result[TextEdit.SEARCH_RESULT_LINE]
-	var last = first
-	
-#	if $code.can_fold(first):
-#		last += 1
-#	else:
-#		return {"matches":result.size(), "first":first, "last":last}
+	var last = first+1
 	
 	while last <= $code.get_line_count():
-		if $code.get_line(last).begins_with("func"):
-#		or $code.get_line(last).begins_with("var")\
-#		or $code.get_line(last).begins_with("signal"):
+		if $code.get_line(last).begins_with("func")\
+		or $code.get_line(last).begins_with("var")\
+		or $code.get_line(last).begins_with("signal"):
 			break
-		print(last)
 		last += 1
 	
 	return {"matches":result.size(), "first":first, "last":last}
@@ -106,7 +106,7 @@ func parse_row(row:HBoxContainer):
 	var code = ""
 	code += str("func ", row.method_name, "():\n")
 	for actionsource in row.get_children():
-		code += str("\t# # # ", actionsource.text, "_", actionsource.get_index()+1, " # # #\n")
+		code += str("\t### ", actionsource.text, "_", actionsource.get_index()+1, " ###\n")
 		for arg in actionsource.arg:
 			
 			if str(actionsource.arg.get(arg)).length() == 0:
@@ -128,7 +128,7 @@ var last_selected_action
 func _on_action_selected(src):
 #	print("action selected: reported by ", name)
 	last_selected_action = src
-#	$"Toolbar/HBoxContainer/Action/Title".text = str("Action: ",src.text)
+	$"Toolbar/HBoxContainer/Action/Title".text = str("Action: ",src.text)
 	var vars = $Toolbar/HBoxContainer/Argument/ScrollContainer/Vars
 	
 	$Toolbar/HBoxContainer/Argument/Title.text = src.text

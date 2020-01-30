@@ -377,13 +377,6 @@ margin_right = 1006.0
 margin_bottom = 564.0
 draw_tabs = true
 draw_spaces = true
-
-[node name="Var" type="GridContainer" parent="."]
-margin_left = 351.0
-margin_right = 375.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
-columns = 2
 [connection signal="pressed" from="Toolbar/HBoxContainer/File/Grid/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer/add_action" to="." method="_on_Button8_pressed"]
 [connection signal="pressed" from="Toolbar/HBoxContainer/Action/HBoxContainer/VBoxContainer/edit_action" to="." method="_on_edit_action_pressed"]
