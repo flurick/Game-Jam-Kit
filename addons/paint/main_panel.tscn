@@ -81,10 +81,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -35.5
-margin_top = -32.5
-margin_right = -11.5
-margin_bottom = -8.5
+margin_left = -12.1732
+margin_top = -14.0146
+margin_right = 11.8268
+margin_bottom = 9.98535
 rect_min_size = Vector2( 24, 24 )
 focus_mode = 0
 mouse_default_cursor_shape = 12
@@ -153,6 +153,9 @@ margin_top = 24.0
 [node name="Toolbox" type="Panel" parent="."]
 anchor_right = 1.0
 rect_min_size = Vector2( 24, 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Toolbox"]
 anchor_right = 1.0
@@ -245,36 +248,44 @@ __meta__ = {
 
 [node name="OptionButton" type="OptionButton" parent="Toolbox/HBoxContainer"]
 margin_left = 217.0
-margin_right = 295.0
+margin_right = 280.0
 margin_bottom = 24.0
-text = "Opacity"
-items = [ "Opacity", null, false, 0, null, "Mix", null, false, 1, null, "Size", null, false, 2, null ]
-selected = 0
+text = "None"
+items = [ "Opacity", null, false, 0, null, "Mix", null, false, 1, null, "Size", null, false, 2, null, "None", null, false, -1, null ]
+selected = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="OptionButton2" type="MenuButton" parent="Toolbox/HBoxContainer"]
+margin_left = 284.0
+margin_right = 345.0
+margin_bottom = 24.0
+text = "Opacity"
+items = [ "Opacity", null, 2, false, false, 0, 0, null, "", false, "Mix", null, 1, false, false, 1, 0, null, "", false, "Size", null, 1, false, false, 2, 0, null, "", false ]
+switch_on_hover = true
+
 [node name="Spacer2" type="Control" parent="Toolbox/HBoxContainer"]
-margin_left = 299.0
-margin_right = 307.0
+margin_left = 349.0
+margin_right = 357.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 8, 8 )
 
 [node name="filename" type="LineEdit" parent="Toolbox/HBoxContainer"]
-margin_left = 311.0
-margin_right = 369.0
+margin_left = 361.0
+margin_right = 419.0
 margin_bottom = 24.0
 placeholder_text = "Filename"
 
 [node name="Button" type="Button" parent="Toolbox/HBoxContainer"]
-margin_left = 373.0
-margin_right = 414.0
+margin_left = 423.0
+margin_right = 464.0
 margin_bottom = 24.0
 text = "Save"
 
 [node name="Spacer3" type="Control" parent="Toolbox/HBoxContainer"]
-margin_left = 418.0
-margin_right = 426.0
+margin_left = 468.0
+margin_right = 476.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 8, 8 )
 
@@ -301,7 +312,7 @@ script = ExtResource( 6 )
 value = 8
 
 [node name="Control" type="Control" parent="Toolbox/HBoxContainer"]
-margin_left = 430.0
+margin_left = 480.0
 margin_right = 1024.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 96, 24 )
@@ -323,7 +334,7 @@ flat = true
 
 [node name="HSlider" type="HSlider" parent="Toolbox/HBoxContainer/Control/HBoxContainer"]
 margin_left = 28.0
-margin_right = 566.0
+margin_right = 516.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
 hint_tooltip = "Mix beteen the two selected colors."
@@ -335,8 +346,8 @@ value = 1.0
 ticks_on_borders = true
 
 [node name="ColorPickerButton2" type="ColorPickerButton" parent="Toolbox/HBoxContainer/Control/HBoxContainer"]
-margin_left = 570.0
-margin_right = 594.0
+margin_left = 520.0
+margin_right = 544.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
 flat = true

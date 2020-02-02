@@ -88,18 +88,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Save" type="Button" parent="Toolbar/HBoxContainer/File/Grid"]
+[node name="Button" type="Button" parent="Toolbar/HBoxContainer/File/Grid"]
 margin_right = 58.0
 margin_bottom = 20.0
+disabled = true
+text = "Parse"
+
+[node name="Save" type="Button" parent="Toolbar/HBoxContainer/File/Grid"]
+margin_top = 24.0
+margin_right = 58.0
+margin_bottom = 44.0
 text = "Save"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Filename" type="LineEdit" parent="Toolbar/HBoxContainer/File/Grid"]
-margin_top = 24.0
+margin_top = 48.0
 margin_right = 58.0
-margin_bottom = 48.0
+margin_bottom = 72.0
 text = "script_name.gd"
 
 [node name="Title" type="Label" parent="Toolbar/HBoxContainer/File"]
@@ -125,9 +132,8 @@ __meta__ = {
 }
 
 [node name="Mode" type="Control" parent="Toolbar/HBoxContainer"]
-visible = false
-margin_left = 53.0
-margin_right = 153.0
+margin_left = 68.0
+margin_right = 168.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 100, 48 )
 rect_clip_content = true
@@ -141,18 +147,21 @@ custom_constants/hseparation = 0
 [node name="CheckBox" type="CheckBox" parent="Toolbar/HBoxContainer/Mode/Modes"]
 margin_right = 92.0
 margin_bottom = 24.0
+disabled = true
 text = "Solid"
 
 [node name="CheckBox2" type="CheckBox" parent="Toolbar/HBoxContainer/Mode/Modes"]
 margin_top = 24.0
 margin_right = 92.0
 margin_bottom = 48.0
+disabled = true
 text = "Gravity"
 
 [node name="CheckBox3" type="CheckBox" parent="Toolbar/HBoxContainer/Mode/Modes"]
 margin_top = 48.0
 margin_right = 92.0
 margin_bottom = 72.0
+disabled = true
 text = "Persistant"
 
 [node name="Title" type="Label" parent="Toolbar/HBoxContainer/Mode"]
@@ -171,8 +180,63 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.0
 
+[node name="Shader" type="Control" parent="Toolbar/HBoxContainer"]
+margin_left = 172.0
+margin_right = 272.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 100, 48 )
+rect_clip_content = true
+
+[node name="Modes" type="GridContainer" parent="Toolbar/HBoxContainer/Shader"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="CheckBox" parent="Toolbar/HBoxContainer/Shader/Modes"]
+margin_right = 91.0
+margin_bottom = 24.0
+disabled = true
+text = "Reflective"
+
+[node name="CheckBox2" type="CheckBox" parent="Toolbar/HBoxContainer/Shader/Modes"]
+margin_top = 24.0
+margin_right = 91.0
+margin_bottom = 48.0
+disabled = true
+text = "Magic"
+
+[node name="CheckBox3" type="CheckBox" parent="Toolbar/HBoxContainer/Shader/Modes"]
+margin_top = 48.0
+margin_right = 91.0
+margin_bottom = 72.0
+disabled = true
+text = "Wind"
+
+[node name="Title" type="Label" parent="Toolbar/HBoxContainer/Shader"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+size_flags_vertical = 5
+custom_colors/font_color = Color( 1, 1, 1, 0.47451 )
+text = "Visual"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="Toolbar/HBoxContainer/Shader"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -4.0
+
 [node name="Action" type="Control" parent="Toolbar/HBoxContainer"]
-margin_left = 68.0
+margin_left = 276.0
 margin_right = 849.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 250, 0 )
@@ -193,19 +257,22 @@ __meta__ = {
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Toolbar/HBoxContainer/Action/HBoxContainer"]
-margin_right = 737.0
+margin_right = 557.0
 margin_bottom = 74.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="Actions" type="GridContainer" parent="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer"]
+margin_right = 204.0
+margin_bottom = 34.0
 rect_clip_content = true
 columns = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/HBoxContainer/Action/HBoxContainer"]
-margin_left = 741.0
-margin_right = 765.0
+visible = false
+margin_left = 533.0
+margin_right = 557.0
 margin_bottom = 74.0
 alignment = 1
 

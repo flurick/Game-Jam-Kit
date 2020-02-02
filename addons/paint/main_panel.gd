@@ -19,43 +19,42 @@ var mod_mask
 var button_mask
 func _on_background_gui_input(event):
 	
-	if not event is InputEventMouse: return
-	
-	
 	$Brush.rect_position = event.position - $Brush.rect_size*0.5
 	
 	if event is InputEventMouseButton:
 		mod_mask = int(Input.is_key_pressed(KEY_SPACE))*32 + int(event.shift)*16 + int(event.control)*8 + int(event.alt)*4# + int(event.meta)*2 + int(event.command)*1
 		button_mask = event.button_mask
 		
-#		if button_mask == BUTTON_MASK_LEFT and mod_mask == 0:
-#			paint(event)
+		if button_mask == BUTTON_MASK_LEFT and mod_mask == 0:
+			paint(event)
 #			Input.creat_event(event.position, )
 		
 		if  event.button_index == BUTTON_LEFT \
 		and mod_mask == 0 \
 		and not event.pressed:
+			last_paint_pos = null
 			save()
 	
 	if event is InputEventMouseMotion:
 		if button_mask == BUTTON_MASK_MIDDLE:
 			$Canvas.rect_position += event.relative
 		
-		if button_mask == BUTTON_MASK_LEFT:
-			match mod_mask:
-				32:  $Canvas.rect_position += event.relative
-				8:  $Brush.rect_size += event.relative
-				24:  $Brush.rect_rotation += event.relative.x
-				0:  paint(event)
+#		if button_mask == BUTTON_MASK_LEFT:
+		match mod_mask:
+			32:  $Canvas.rect_position += event.relative
+			8:  $Brush.rect_size += event.relative
+			24:  $Brush.rect_rotation += event.relative.x
+			0:  paint(event)
 
 
-func paint(event:InputEventMouseMotion):
+var last_paint_pos
+func paint(event):
 	
-		
 	var new_dab:Control = $Brush.duplicate ()
 	
 	var tex = new_dab.get_node("TextureRect")
-	if event.pressure != 0:
+#	if event.pressure != 0:
+	if event is InputEventMouseMotion: 
 		match pressure_mode:
 			0: tex.modulate.a = event.pressure
 			1: $Toolbox/HBoxContainer/Control/HBoxContainer/HSlider.value = event.pressure
@@ -64,6 +63,14 @@ func paint(event:InputEventMouseMotion):
 	new_dab.rect_position = event.global_position - $Canvas.rect_global_position - $Brush.rect_size*0.5
 #	$Canvas/ViewportContainer/Viewport.add_child (new_dab)
 	$Canvas.add_child (new_dab)
+	
+	if last_paint_pos:
+		for i in range(1,last_paint_pos.distance_to(event.position),$Brush.rect_size.length()*0.3):
+#			print(i)
+			var d = new_dab.duplicate()
+			d.rect_position += (last_paint_pos-event.position).normalized()*i
+			$Canvas.add_child(d)
+	last_paint_pos = event.position
 
 
 func save():
@@ -112,3 +119,7 @@ func _input(event):
 var pressure_mode = 0
 func _on_OptionButton_item_selected(id):
 	pressure_mode = id
+
+
+func _on_OptionButton2_button_down():
+	print("foobar")

@@ -23,7 +23,8 @@ func list_actions():
 	var f
 	f = d.get_next()
 	while f:
-		ui_list.add_child( load(str("res://addons/dnd/actions/",f)).instance() )
+		if not f.begins_with("."):
+			ui_list.add_child( load(str("res://addons/dnd/actions/",f)).instance() )
 		f = d.get_next()
 		
 	d.list_dir_end()
@@ -36,7 +37,8 @@ func list_methods():
 			show_in_list(method)
 			
 	else:
-		for method in get_method_list():
+		var node2d = Node2D.new()
+		for method in node2d.get_method_list():
 			if method.name[0] == "_":
 				show_in_list(method.name)
 
