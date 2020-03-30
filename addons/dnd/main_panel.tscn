@@ -264,8 +264,6 @@ size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="Actions" type="GridContainer" parent="Toolbar/HBoxContainer/Action/HBoxContainer/ScrollContainer"]
-margin_right = 204.0
-margin_bottom = 34.0
 rect_clip_content = true
 columns = 4
 
@@ -440,7 +438,8 @@ hide_root = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -22.0
+margin_top = -136.52
+margin_bottom = -114.52
 __meta__ = {
 "_edit_use_anchors_": false
 }

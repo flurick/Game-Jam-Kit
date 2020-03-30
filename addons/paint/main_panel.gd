@@ -78,6 +78,7 @@ func paint(event):
 func save():
 #	print("save?")
 #	$Canvas.text
+	$Canvas
 #	ResourceSaver.save("res://painted.png", $Canvas.text)
 	pass
 
