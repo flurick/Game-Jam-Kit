@@ -20,7 +20,7 @@ boot_splash/fullsize=false
 
 [editor_plugins]
 
-enabled=PoolStringArray( "QuickPluginManager" )
+enabled=PoolStringArray( "LemonShop", "QuickPluginManager" )
 
 [rendering]
 

@@ -62,24 +62,27 @@ func save():
 	var target_filename = str("res://doodles/",$"../../../BottomPanel/HBoxContainer/LineEdit".text,".png")
 	var d = Directory.new()
 	d.make_dir("res://doodles")
+	
 #	if d.file_exists(target_filename):
 #		d.copy(target_filename, str(".",target_filename))
+	
 	var err = image.save_png(target_filename)
-	if err: print(err)
-	else: print("Saved doodle ",target_filename)
-
+	if err: 
+		print(err)
+	else: 
+		print("Saved doodle ",target_filename)
+	
+#	ResourceSaver.save(target_filename, image)
 
 func _on_Button1_pressed():
 	new(Vector2.ONE*64)
 func _on_Button2_pressed():
 	new(Vector2.ONE*256)
 
-
 func _on_eraser_pressed():
 	active_tool = "eraser"
 func _on_pen_pressed():
 	active_tool = "pen"
 
-
-func _on_LemonShop_mouse_exited():
+func _on_VBoxContainer_mouse_exited():
 	save()
