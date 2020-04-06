@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Button
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+func _gui_input(event):
+	if event is InputEventKey and event.is_pressed():
+		text = str(event.as_text())
+		release_focus()
+		pressed = false
+"
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.0
+margin_bottom = 1.0
+
+[node name="OptionButton" type="OptionButton" parent="."]
+visible = false
+margin_left = 48.0
+margin_top = 26.0
+margin_right = 176.0
+margin_bottom = 46.0
+text = "QWERTY"
+items = [ "QWERTY", null, false, 0, null, "AZERTY", null, false, 1, null, "Dvorak", null, false, 2, null ]
+selected = 0
+
+[node name="Button" type="Button" parent="."]
+margin_left = 241.0
+margin_top = 107.0
+margin_right = 319.0
+margin_bottom = 168.0
+toggle_mode = true
+script = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 264.0
+margin_top = 183.0
+margin_right = 304.0
+margin_bottom = 197.0
+text = "Up"

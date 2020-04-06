@@ -22,20 +22,19 @@ func _exit_tree():
    main_panel_instance.queue_free()
 
 func _ready():
-	
+    pass	
 #	main_panel_instance.get_node("Panel/Toolbar/HBoxContainer/Button/Label").text = str("<",get_editor_interface().get_script(),">")
 #   main_panel_instance.connect("main_button_pressed", side_panel_instance, "_on_main_button_pressed")
 #   side_panel_instance.connect("side_button_pressed", main_panel_instance, "_on_side_button_pressed")
-	pass
 
 func has_main_screen():
    return true
 
 func make_visible(visible):
    if visible:
-	  main_panel_instance.show()
+      main_panel_instance.show()
    else:
-	  main_panel_instance.hide()
+      main_panel_instance.hide()
 
 func get_plugin_name():
    return "DnD"

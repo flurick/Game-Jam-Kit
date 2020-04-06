@@ -19,7 +19,8 @@ var mod_mask
 var button_mask
 func _on_background_gui_input(event):
 	
-	$Brush.rect_position = event.position - $Brush.rect_size*0.5
+	if event is InputEventMouse:
+		$Brush.rect_position = event.position - $Brush.rect_size*0.5
 	
 	if event is InputEventMouseButton:
 		mod_mask = int(Input.is_key_pressed(KEY_SPACE))*32 + int(event.shift)*16 + int(event.control)*8 + int(event.alt)*4# + int(event.meta)*2 + int(event.command)*1
@@ -27,7 +28,7 @@ func _on_background_gui_input(event):
 		
 		if button_mask == BUTTON_MASK_LEFT and mod_mask == 0:
 			paint(event)
-#			Input.creat_event(event.position, )
+#			Input.create_event(event.position, )
 		
 		if  event.button_index == BUTTON_LEFT \
 		and mod_mask == 0 \
@@ -39,12 +40,12 @@ func _on_background_gui_input(event):
 		if button_mask == BUTTON_MASK_MIDDLE:
 			$Canvas.rect_position += event.relative
 		
-#		if button_mask == BUTTON_MASK_LEFT:
-		match mod_mask:
-			32:  $Canvas.rect_position += event.relative
-			8:  $Brush.rect_size += event.relative
-			24:  $Brush.rect_rotation += event.relative.x
-			0:  paint(event)
+		if button_mask == BUTTON_MASK_LEFT:
+			match mod_mask:
+				32:  $Canvas.rect_position += event.relative
+				8:  $Brush.rect_size += event.relative
+				24:  $Brush.rect_rotation += event.relative.x
+				0:  paint(event)
 
 
 var last_paint_pos
@@ -56,9 +57,10 @@ func paint(event):
 #	if event.pressure != 0:
 	if event is InputEventMouseMotion: 
 		match pressure_mode:
-			0: tex.modulate.a = event.pressure
-			1: $Toolbox/HBoxContainer/Control/HBoxContainer/HSlider.value = event.pressure
-			2: tex.rect_scale = $Brush.rect_scale * event.pressure
+			0: pass
+			1: tex.modulate.a = event.pressure
+			2: $Toolbox/HBoxContainer/Control/HBoxContainer/HSlider.value = event.pressure
+			3: tex.rect_scale = $Brush.rect_scale * event.pressure
 		
 	new_dab.rect_position = event.global_position - $Canvas.rect_global_position - $Brush.rect_size*0.5
 #	$Canvas/ViewportContainer/Viewport.add_child (new_dab)
@@ -76,6 +78,7 @@ func paint(event):
 func save():
 #	print("save?")
 #	$Canvas.text
+	$Canvas
 #	ResourceSaver.save("res://painted.png", $Canvas.text)
 	pass
 

@@ -23,7 +23,7 @@ func list_actions():
 	var f
 	f = d.get_next()
 	while f:
-		if not f.begins_with("."):
+		if not f.begins_with(".") and f.ends_with(".tscn"):
 			ui_list.add_child( load(str("res://addons/dnd/actions/",f)).instance() )
 		f = d.get_next()
 		
