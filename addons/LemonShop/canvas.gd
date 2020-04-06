@@ -39,7 +39,7 @@ func brush_stroke(pos):
 			for x in range(-eraser_radius,eraser_radius):
 				for y in range(-eraser_radius,eraser_radius):
 					if Rect2(Vector2.ZERO, rect_size).has_point(pos+Vector2(x,y)):
-						image.set_pixelv(pos+Vector2(x,y), Color.transparent)
+						image.set_pixelv(pos+Vector2(x,y), Color(0,0,0,0))
 
 var is_using = false
 func _gui_input(event):
