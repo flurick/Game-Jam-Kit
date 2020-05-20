@@ -1,4 +1,4 @@
-# Game-Jam-Kit
+# Game-Jam-Kit (quick first draft)
 Addons for jaming out games.
 
 ![](dnd.gif)
