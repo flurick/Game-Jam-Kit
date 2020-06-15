@@ -79,4 +79,4 @@ func make_visible(visible):
 
 
 func get_plugin_name():
-   return "CareToShare"
+   return "AssetShelf"
